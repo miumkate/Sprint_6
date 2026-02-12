@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
 
@@ -17,30 +16,30 @@ public class ScooterOrderPage {
     private WebElement element;
 
     //Первый экран
-    private By userName = By.xpath("//input[contains(@placeholder,'Имя')]");
-    private By userSurname = By.xpath("//input[contains(@placeholder,'Фамилия')]");
-    private By userAddress = By.xpath("//input[contains(@placeholder,'Адрес')]");
-    private By metroStation = By.xpath("//input[contains(@placeholder,'Станция метро')]");
-    private By userPhone = By.xpath("//input[contains(@placeholder,'Телефон')]");
-    private By buttonNext = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Далее']");
-    private By headerOrder = By.xpath("//div[@class='Order_Header__BZXOb']");
-    private By datePicker = By.xpath("//input[contains(@placeholder, 'Когда привезти самокат')]");
+    private final By userName = By.xpath("//input[contains(@placeholder,'Имя')]");
+    private final By userSurname = By.xpath("//input[contains(@placeholder,'Фамилия')]");
+    private final By userAddress = By.xpath("//input[contains(@placeholder,'Адрес')]");
+    private final By metroStation = By.xpath("//input[contains(@placeholder,'Станция метро')]");
+    private final By userPhone = By.xpath("//input[contains(@placeholder,'Телефон')]");
+    private final By buttonNext = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Далее']");
+    private final By headerOrder = By.xpath("//div[@class='Order_Header__BZXOb']");
+    private final By datePicker = By.xpath("//input[contains(@placeholder, 'Когда привезти самокат')]");
 
     // Второй экран
-    private By nextMonth = By.xpath("//button[@aria-label='Next Month']");
-    private By rentalPeriodElement = By.className("Dropdown-control");
-    private By numberOfDaysElement = By.xpath("//div[@class='Dropdown-option']");
-    private By commentForCourier = By.xpath("//input[contains(@placeholder,'Комментарий для курьера')]");
-    private By buttonOrder = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Заказать']");
+    private final By nextMonth = By.xpath("//button[@aria-label='Next Month']");
+    private final By rentalPeriodElement = By.className("Dropdown-control");
+    private final By numberOfDaysElement = By.xpath("//div[@class='Dropdown-option']");
+    private final By commentForCourier = By.xpath("//input[contains(@placeholder,'Комментарий для курьера')]");
+    private final By buttonOrder = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Заказать']");
 
     // Третий экран
-    private By wantOrder = By.xpath("//div[@class='Order_ModalHeader__3FDaJ' and text()='Хотите оформить заказ?']");
-    private By buttonYesOrder = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Да']");
-    private By buttonNoOrder = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM Button_Inverted__3IF-i' and text()='Нет']");
+    private final By wantOrder = By.xpath("//div[@class='Order_ModalHeader__3FDaJ' and text()='Хотите оформить заказ?']");
+    private final By buttonYesOrder = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Да']");
+    private final By buttonNoOrder = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM Button_Inverted__3IF-i' and text()='Нет']");
 
     // Четверный экран
-    private By orderDoneInfo = By.xpath("//div[@class='Order_Text__2broi']");//
-    private By orderDoneHeader = By.xpath("//div[@class='Order_ModalHeader__3FDaJ']");
+    private final By orderDoneInfo = By.xpath("//div[@class='Order_Text__2broi']");//
+    private final By orderDoneHeader = By.xpath("//div[@class='Order_ModalHeader__3FDaJ']");
 
     public ScooterOrderPage(WebDriver driver){
         this.driver = driver;
@@ -95,7 +94,6 @@ public class ScooterOrderPage {
         By dayOfMonth = By.xpath(String.format("//div[contains(@class, 'react-datepicker__day react-datepicker__day--') and text()='%d']", day));
         wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         element = wait.until(ExpectedConditions.visibilityOfElementLocated(datePicker));
-        assert element != null;
         element.click();
 
         if (day > 28){
@@ -150,11 +148,6 @@ public class ScooterOrderPage {
         element.click();
     }
 
-    public void clickNoOrder(){
-        element = driver.findElement(buttonNoOrder);
-        element.click();
-    }
-
     public String  checkWantOrder(){
         wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         element = wait.until(ExpectedConditions.visibilityOfElementLocated(wantOrder));
@@ -164,11 +157,6 @@ public class ScooterOrderPage {
     public String getHeaderOrderInfo(){
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         element = wait.until(ExpectedConditions.visibilityOfElementLocated(orderDoneHeader));
-        return element.getText();
-    }
-
-    public String getOrderInfo(){
-        element = driver.findElement(orderDoneInfo);
         return element.getText();
     }
 }

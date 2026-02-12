@@ -10,9 +10,9 @@ import java.util.List;
 public class QuestionsScooterPage {
     private WebElement element;
     private WebDriver  driver;
-    private By accordionItemQuestions = By.className("accordion__heading");
-    private By accordionFAQ = By.xpath("//div[@class='Home_FAQ__3uVm4']");
-    private By accordionItemAnswers = By.xpath("//div[@class='accordion__panel']/p");
+    private final By accordionItemQuestions = By.className("accordion__heading");
+    private final By accordionFAQ = By.xpath("//div[@class='Home_FAQ__3uVm4']");
+    private final By accordionItemAnswers = By.xpath("//div[@class='accordion__panel']/p");
 
     public QuestionsScooterPage(WebDriver driver){
         this.driver = driver;
