@@ -35,10 +35,8 @@ public class ScooterOrderPage {
     // Третий экран
     private final By wantOrder = By.xpath("//div[@class='Order_ModalHeader__3FDaJ' and text()='Хотите оформить заказ?']");
     private final By buttonYesOrder = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Да']");
-    private final By buttonNoOrder = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM Button_Inverted__3IF-i' and text()='Нет']");
 
     // Четверный экран
-    private final By orderDoneInfo = By.xpath("//div[@class='Order_Text__2broi']");//
     private final By orderDoneHeader = By.xpath("//div[@class='Order_ModalHeader__3FDaJ']");
 
     public ScooterOrderPage(WebDriver driver){
