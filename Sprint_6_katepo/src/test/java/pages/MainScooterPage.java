@@ -1,0 +1,60 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+import java.util.Objects;
+
+public class MainScooterPage {
+
+    private WebDriver driver;
+    private String whereButton;
+    private By cookieButton = By.className("App_CookieButton__3cvqF");
+    private By buttonTop = By.xpath("//button[@class='Button_Button__ra12g']");
+    private By buttonBottom =  By.className("Home_FinishButton__1_cWm");
+    private By headerMain = By.xpath("//div[@class='Home_Header__iJKdX']");
+
+    public MainScooterPage(WebDriver driver){
+        this.driver = driver;
+    }
+
+    public MainScooterPage(WebDriver driver, String whereButton){
+        this.driver = driver;
+        this.whereButton = whereButton;
+    }
+
+    public String getHeaderOrder() {
+        WebElement element = driver.findElement(headerMain);
+        return element.getText();
+    }
+
+    public void setCookie(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.elementToBeClickable(cookieButton));
+        WebElement element = driver.findElement(cookieButton);
+        element.click();
+    }
+
+    public void clickButtonOrder(){
+        if (Objects.equals(whereButton, "top")){
+            clickButtonTop();
+        }else if(Objects.equals(whereButton, "bottom")){
+            clickButtonBottom();
+        }
+    }
+
+    public void clickButtonTop(){
+        WebElement element = driver.findElement(buttonTop);
+        element.click();
+    }
+
+    public void clickButtonBottom(){
+        WebElement element = driver.findElement(buttonBottom);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
+        element.click();
+    }
+}
