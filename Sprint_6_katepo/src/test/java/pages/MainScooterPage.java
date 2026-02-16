@@ -9,15 +9,13 @@ import java.util.Objects;
 public class MainScooterPage {
 
     private WebDriver driver;
-    private String whereButton;
     private final By buttonTop = By.xpath("//button[@class='Button_Button__ra12g']");
     private final By buttonBottom =  By.className("Home_FinishButton__1_cWm");
-    private final By headerMain = By.xpath("//div[@class='Home_Header__iJKdX']");
+    private final By headerMain = By.xpath("//div[@class='Home_Header__iJKdX' and contains(text(),'Самокат')]");
 
 
-    public MainScooterPage(WebDriver driver, String whereButton){
+    public MainScooterPage(WebDriver driver){
         this.driver = driver;
-        this.whereButton = whereButton;
     }
 
     public String getHeaderOrder() {
@@ -25,13 +23,14 @@ public class MainScooterPage {
         return element.getText();
     }
 
-    public void clickButtonOrder(){
+    public void clickButtonOrder(String whereButton){
         if (Objects.equals(whereButton, "top")){
             clickButtonTop();
         }else if(Objects.equals(whereButton, "bottom")){
             clickButtonBottom();
         }
     }
+
 
     public void clickButtonTop(){
         WebElement element = driver.findElement(buttonTop);

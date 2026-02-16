@@ -9,21 +9,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import pages.MainScooterPage;
 import pages.ScooterOrderPage;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 import java.util.stream.Stream;
 
 public class CreateOrderTest {
 
     private WebDriver driver;
+    private final String urlQaScooterMain = "https://qa-scooter.praktikum-services.ru/";
 
     @BeforeEach
     public void setup(){
         driver = new ChromeDriver();
-//        driver = new FirefoxDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        // driver = new FirefoxDriver();
+        driver.get(urlQaScooterMain);
     }
 
     private static Stream<Arguments> userProfileProvider() {
@@ -38,10 +35,10 @@ public class CreateOrderTest {
     public void firstOrderTest(String whereButtonOrder, String name, String surname, String address, String station, String phone){
         String header;
         // Step 1
-        MainScooterPage mainPage = new MainScooterPage(driver,whereButtonOrder);
+        MainScooterPage mainPage = new MainScooterPage(driver);
         header = mainPage.getHeaderOrder();
         Assertions.assertTrue(header.contains("Самокат"));
-        mainPage.clickButtonOrder();
+        mainPage.clickButtonOrder(whereButtonOrder);
 
         // Step 2
         ScooterOrderPage orderPage = new ScooterOrderPage(driver);
@@ -52,9 +49,15 @@ public class CreateOrderTest {
         orderPage.clickButtonNext();
 
         // Step 3
+        GenerateDataForOrder dataForOrder = new GenerateDataForOrder();
+        int dateStart = dataForOrder.getDayStartForScooter();
+        String dayInterval = dataForOrder.getInterval();
+        String color = dataForOrder.getColor();
+
+
         header = orderPage.getHeaderOrder();
         Assertions.assertTrue(header.contains("Про аренду"));
-        orderPage.setAboutRentForOrder(getDayStartForScooter(),getInterval(),getColor(),"Прикрепите, пожалуйста, звоночек на руль.");
+        orderPage.setAboutRentForOrder(dateStart,dayInterval,color,"Прикрепите, пожалуйста, звоночек на руль.");
         orderPage.clickButtonOrder();
 
         // Step 4
@@ -68,33 +71,6 @@ public class CreateOrderTest {
     }
 
 
-    Integer getDayStartForScooter(){
-        LocalDate date = LocalDate.now();
-        return date.getDayOfMonth()+1;
-    }
-
-    String getInterval(){
-        int randomInt = (int) (Math.random() * 7);
-        List<String>  interval = Arrays.asList(
-                "сутки",
-                "двое суток",
-                "трое суток",
-                "четверо суток",
-                "пятеро суток",
-                "шестеро суток",
-                "семеро суток"
-        );
-        return interval.get(randomInt);
-    }
-
-    String getColor(){
-        List<String> colors = Arrays.asList(
-                "grey",
-                "black"
-        );
-        Random random = new Random();
-        return colors.get(random.nextInt(colors.size()));
-    }
 
     @AfterEach
     void exit(){

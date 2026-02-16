@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 public class QuestionMainPageTest {
 
+    private final String urlQaScooterMain = "https://qa-scooter.praktikum-services.ru/";
     private WebDriver driver;
 
     private String getKeyValue(String key) {
@@ -30,9 +31,10 @@ public class QuestionMainPageTest {
 
 
     @BeforeEach
-    public void setup(){
-        driver = new ChromeDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+    public void start(){
+       driver = new ChromeDriver();
+       driver.get(urlQaScooterMain);
+
     }
 
     @ParameterizedTest
@@ -50,7 +52,7 @@ public class QuestionMainPageTest {
     }
 
     @AfterEach
-    public void quit(){
+    public void exit(){
         driver.quit();
     }
 }
